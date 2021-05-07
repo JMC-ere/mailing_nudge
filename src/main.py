@@ -1,14 +1,39 @@
 import json
-from src.es_connect import es_connect
-from src.db_connect import db_connect
+from make_xl import make_xl, m_make_xl
+import sys
+from datetime import datetime, timedelta
+from query_dls import qry_dls
+from db_connect import m_db_connect
+
 
 if __name__ == '__main__':
     with open("../config/info.json", 'r') as connect_info:
         info = json.load(connect_info)
     info = info['STG']
 
-    es_connect(info)
-    db_connect(info)
+    start_day = "2021.05.04"
+
+    # start_day = datetime.today().strftime("%Y.%m.%d")
+
+    loop = 0
+
+    qry = qry_dls
+    make_xl(info, start_day, qry)
+    m_make_xl(info, start_day, qry)
+
+    # if len(sys.argv) > 1:
+    #     start_day = sys.argv[1]
+    #     start_day = datetime.strptime(start_day, "%Y.%d.%m").date()
+    #     start_day = start_day.strftime("%Y.%m.%d")
+    #     make_xl(info, start_day, qry)
+    #
+    # if len(sys.argv) > 2:
+    #     loop = int(sys.argv[2])
+    #
+    # if loop > 2:
+    #     for i in range(0, loop):
+    #         start_day = start_day + timedelta(days=loop)
+    #         make_xl(info, start_day, qry)
 
     connect_info.close()
 
