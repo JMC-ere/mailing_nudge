@@ -3,10 +3,24 @@ from es_connect import es_connect, m_es_connect
 from db_connect import db_connect, m_db_connect
 
 
-def make_xl(info, start_day, qry):
-
+def test_sheet():
     write_wb = Workbook()
-    write_ws = write_wb.create_sheet("종류별_"+str(start_day))
+    test1 = write_wb.create_sheet("Test_Sheet_1")
+    test2 = write_wb.create_sheet("Test_Sheet_2")
+    test1['A1'] = "TEST"
+    test2['A1'] = "TEST"
+    write_wb.save("test.xlsx")
+
+
+test_sheet()
+
+
+def make_xl(info, start_day, qry):
+    write_wb = Workbook()
+    write_ws = write_wb.create_sheet(index=1, title="종류별_" + str(start_day))
+    write_ws1 = write_wb.create_sheet("TEST")
+
+    write_ws1.append(['1', '2'])
 
     write_ws['A1'] = 'NO.'
     write_ws['B1'] = 'Nudge 종류'
@@ -52,7 +66,6 @@ def make_xl(info, start_day, qry):
             z['click.voice_text.button_stb'] = 0
             z['click.voice_text.button'] = 0
         xl_number += 1
-        print(z)
         write_ws.append([z['number'],
                          z['nudge_name'],
                          "",
@@ -63,13 +76,13 @@ def make_xl(info, start_day, qry):
                          z['click.voice_text.button_stb'],
                          z['use_p']])
 
-    write_wb.save("../xlsx/자동넛지_종류별성과_통계데이터_"+str(start_day) + '.xlsx')
+    # write_wb.save("../xlsx/자동넛지_통계데이터_" + '.xlsx')
+    write_wb.save("../xlsx/자동넛지_종류별성과_통계데이터_" + str(start_day) + '.xlsx')
 
 
 def m_make_xl(info, start_day, qry):
-
     write_wb = Workbook()
-    write_ws = write_wb.create_sheet("위치별_"+str(start_day))
+    write_ws = write_wb.create_sheet(index=2, title="위치별_" + str(start_day))
 
     write_ws['A1'] = 'NO.'
     write_ws['B1'] = '구분'
@@ -128,4 +141,5 @@ def m_make_xl(info, start_day, qry):
                          z['click.voice_text.button_stb'],
                          z['use_p']])
 
-    write_wb.save("../xlsx/자동넛지_위치별성과_통계데이터_"+str(start_day) + '.xlsx')
+    # write_wb.save("../xlsx/자동넛지_통계데이터_" + '.xlsx')
+    write_wb.save("../xlsx/자동넛지_위치별성과_통계데이터_" + str(start_day) + '.xlsx')

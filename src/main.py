@@ -11,15 +11,17 @@ if __name__ == '__main__':
         info = json.load(connect_info)
     info = info['STG']
 
-    start_day = "2021.05.04"
+    start_day = ['2021.05.05']
 
     # start_day = datetime.today().strftime("%Y.%m.%d")
 
     loop = 0
 
     qry = qry_dls
-    make_xl(info, start_day, qry)
-    m_make_xl(info, start_day, qry)
+
+    for day in start_day:
+        make_xl(info, day, qry)
+        m_make_xl(info, day, qry)
 
     # if len(sys.argv) > 1:
     #     start_day = sys.argv[1]
